@@ -27,7 +27,7 @@ const RepoCommitCountPie = props => {
           outerRadius="70%"
           dataKey="value"
         >
-          {data.map((retry,index) => (
+          {data.map((retry, index) => (
             <Cell
               key={data.name + data.value}
               fill={COLORS[index % COLORS.length]}
