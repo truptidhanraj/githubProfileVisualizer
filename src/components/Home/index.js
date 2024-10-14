@@ -26,7 +26,7 @@ const apiStatusConstants = {
 class Home extends Component {
   state = {
     profileDetails: [],
-    /* username: '', */
+    isLoading: false,
     isError: false,
     errorMsg: '',
     apiStatus: apiStatusConstants.initial,
@@ -39,9 +39,9 @@ class Home extends Component {
   getGitHubUserProfileDetails = async () => {
     const {username} = this.props
 
-    this.setState({apiStatus: apiStatusConstants.inProgress})
+    this.setState({apiStatus: apiStatusConstants.inProgress, isLoading: true})
 
-    const GitHubUserProfileUrl = `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`
+    const GitHubUserProfileUrl = `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`
     const options = {
       method: 'GET',
     }
@@ -85,17 +85,13 @@ class Home extends Component {
         url: data.url,
       }
       this.setState(prevState => ({
-        profileDetails: [...prevState.profileDetails, updatedData],
+        profileDetails: [updatedData],
         apiStatus: apiStatusConstants.success,
       }))
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
   }
-
-  /* onChangeUserName = event => {
-    this.setState({username: event.target.value})
-  } */
 
   onClickSearch = () => {
     const {username} = this.props
@@ -104,10 +100,17 @@ class Home extends Component {
         isError: true,
         errorMsg: 'Enter the valid github username',
         profileDetails: [],
+        isLoading: false,
       })
     } else {
+      this.setState({
+        apiStatus: apiStatusConstants.inProgress,
+        isError: false,
+        errorMsg: '',
+        isLoading: true,
+        profileDetails: [],
+      })
       this.getGitHubUserProfileDetails()
-      this.setState({isError: false, errorMsg: ''})
     }
   }
 
@@ -186,6 +189,13 @@ class Home extends Component {
   }
 
   onClickTryAgain = () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+      isError: false,
+      errorMsg: '',
+      profileDetails: [],
+      isLoading: true,
+    })
     this.getGitHubUserProfileDetails()
   }
 
@@ -198,6 +208,7 @@ class Home extends Component {
         className="error-view"
       />
       <p className="errorName">Something went wrong. Please try again</p>
+
       <button
         className="tryButton"
         type="button"
@@ -208,12 +219,18 @@ class Home extends Component {
     </div>
   )
 
-  renderLoaderView = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="TailSpin" color="#3B82F6" height={50} width={50} />
-    </div>
-  )
-
+  renderLoaderView = () => {
+    const {apiStatus, isLoading} = this.state
+    if (apiStatus === apiStatusConstants.inProgress && isLoading === true) {
+      return (
+        <div className="loader-container" data-testid="loader">
+          <Loader type="TailSpin" color="#3B82F6" height={50} width={50} />
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
   renderGithubProfilesDetails = () => {
     const {apiStatus} = this.state
     switch (apiStatus) {
@@ -227,11 +244,6 @@ class Home extends Component {
         return null
     }
   }
-
-  /*  onChangeUserName = event => {
-    const {changeUserName} = this.props
-    changeUserName(event.target.value)
-  } */
 
   render() {
     return (
