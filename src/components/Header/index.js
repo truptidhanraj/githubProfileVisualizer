@@ -19,9 +19,11 @@ class Header extends Component {
       <div className="container">
         <div data-testid="header" className="repo-item">
           <nav className="header-container">
-            <Link to="/" className="heading-nav-link">
-              <h1 className="header-heading">GitHub Profile Visualizer</h1>
-            </Link>
+            <h1 className="header-heading">
+              <Link to="/" style={{color: 'white', textDecoration: 'none'}}>
+                GitHub Profile Visualizer
+              </Link>
+            </h1>
 
             <button
               className="menu-button"
@@ -38,9 +40,11 @@ class Header extends Component {
               <Link to="/" className="item-nav-link">
                 <li>Home</li>
               </Link>
+
               <Link to="/repositories" className="item-nav-link">
                 <li>Repositories</li>
               </Link>
+
               <Link to="/analysis" className="item-nav-link">
                 <li>Analysis</li>
               </Link>
