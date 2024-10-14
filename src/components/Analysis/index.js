@@ -77,7 +77,7 @@ class Analysis extends Component {
 
     //   const repoCommitDescriptionKeys = Object.keys(repoCommitCountDescriptions)
 
-    /* 1. Data for quarterCommitCount that is for LinearChart */
+    
     const quarterCommitData = []
     const quarterCommitKeyNames = Object.keys(quarterCommitCount)
     quarterCommitKeyNames.forEach(keyName => {
