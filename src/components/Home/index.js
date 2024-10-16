@@ -84,10 +84,10 @@ class Home extends Component {
         updatedAt: data.updated_at,
         url: data.url,
       }
-      this.setState(prevState => ({
+      this.setState({
         profileDetails: [updatedData],
         apiStatus: apiStatusConstants.success,
-      }))
+      })
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
@@ -227,9 +227,9 @@ class Home extends Component {
           <Loader type="TailSpin" color="#3B82F6" height={50} width={50} />
         </div>
       )
-    } else {
+    } 
       return null
-    }
+    
   }
   renderGithubProfilesDetails = () => {
     const {apiStatus} = this.state
