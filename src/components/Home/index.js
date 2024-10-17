@@ -227,9 +227,9 @@ class Home extends Component {
         </div>
       
     } 
-      return null
+      
     
-  }
+  
   renderGithubProfilesDetails = () => {
     const {apiStatus} = this.state
     switch (apiStatus) {
