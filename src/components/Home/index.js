@@ -26,7 +26,7 @@ const apiStatusConstants = {
 class Home extends Component {
   state = {
     profileDetails: [],
-    isLoading: false,
+  
     isError: false,
     errorMsg: '',
     apiStatus: apiStatusConstants.initial,
@@ -39,7 +39,7 @@ class Home extends Component {
   getGitHubUserProfileDetails = async () => {
     const {username} = this.props
 
-    this.setState({apiStatus: apiStatusConstants.inProgress, isLoading: true})
+    this.setState({apiStatus: apiStatusConstants.inProgress})
 
     const GitHubUserProfileUrl = `https://apis2.ccbp.in/gpv/profile-details/${username}?api_key=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`
     const options = {
@@ -100,14 +100,14 @@ class Home extends Component {
         isError: true,
         errorMsg: 'Enter the valid github username',
         profileDetails: [],
-        isLoading: false,
+      
       })
     } else {
       this.setState({
         apiStatus: apiStatusConstants.inProgress,
         isError: false,
         errorMsg: '',
-        isLoading: true,
+        
         profileDetails: [],
       })
       this.getGitHubUserProfileDetails()
@@ -194,7 +194,7 @@ class Home extends Component {
       isError: false,
       errorMsg: '',
       profileDetails: [],
-      isLoading: true,
+      
     })
     this.getGitHubUserProfileDetails()
   }
@@ -220,13 +220,12 @@ class Home extends Component {
   )
 
   renderLoaderView = () => {
-    const {apiStatus, isLoading} = this.state
-    if (apiStatus === apiStatusConstants.inProgress && isLoading === true) {
-      return (
+    
+  
         <div className="loader-container" data-testid="loader">
           <Loader type="TailSpin" color="#3B82F6" height={50} width={50} />
         </div>
-      )
+      
     } 
       return null
     
